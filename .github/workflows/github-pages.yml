@@ -1,0 +1,35 @@
+name: Deploy to GitHub Pages
+on:
+  push:
+    branches:
+      - master
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    - name: Install packages
+      uses: borales/actions-yarn@v2.3.0
+      with:
+        cmd: install # will run `yarn install` command
+    - name: Build
+      uses: borales/actions-yarn@v2.3.0
+      with:
+        cmd: build # will run `yarn build` command
+      env:
+        REACT_APP_CRYPTO_RAPID_API_HOST: ${{ secrets.REACT_APP_CRYPTO_RAPID_API_HOST }}
+        REACT_APP_CRYPTO_RAPID_API_KEY: ${{ secrets.REACT_APP_CRYPTO_RAPID_API_KEY }}
+        REACT_APP_CRYPTO_RAPID_BASE_URL: ${{ secrets.REACT_APP_CRYPTO_RAPID_BASE_URL }}
+        REACT_APP_CRYPTO_NEWS_RAPID_API_SDK: ${{ secrets.REACT_APP_CRYPTO_NEWS_RAPID_API_SDK }}
+        REACT_APP_CRYPTO_NEWS_RAPID_API_KEY: ${{ secrets.REACT_APP_CRYPTO_NEWS_RAPID_API_KEY }}
+        REACT_APP_CRYPTO_NEWS_RAPID_API_HOST: ${{ secrets.REACT_APP_CRYPTO_NEWS_RAPID_API_HOST }}
+        REACT_APP_CRYPTO_NEWS_RAPID_BASE_URL: ${{ secrets.REACT_APP_CRYPTO_NEWS_RAPID_BASE_URL }}
+    - name: Deploy
+      uses: JamesIves/github-pages-deploy-action@v4.3.2
+      with:
+        token: ${{ secrets.ACCESS_TOKEN }}
+        branch: gh-pages # The branch the action should deploy to
+        folder: build
+        clean: true
