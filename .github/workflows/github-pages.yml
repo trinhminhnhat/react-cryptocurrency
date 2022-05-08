@@ -27,7 +27,7 @@ jobs:
         REACT_APP_CRYPTO_NEWS_RAPID_API_HOST: ${{ secrets.REACT_APP_CRYPTO_NEWS_RAPID_API_HOST }}
         REACT_APP_CRYPTO_NEWS_RAPID_BASE_URL: ${{ secrets.REACT_APP_CRYPTO_NEWS_RAPID_BASE_URL }}
     - name: Deploy
-      uses: JamesIves/github-pages-deploy-action@v4.3.2
+      uses: JamesIves/github-pages-deploy-action@v4.3.3
       with:
         token: ${{ secrets.ACCESS_TOKEN }}
         branch: gh-pages # The branch the action should deploy to
